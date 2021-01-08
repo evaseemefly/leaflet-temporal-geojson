@@ -4,13 +4,13 @@ $(document).ready(function () {
 	const map = L.map('map', { 
 		// recommended for performance
 		renderer: L.canvas() 
-	}).setView([26.490519, 124.119987], 9);
+	}).setView([-43.51, 158], 9);
 
 	L.tileLayer("http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png")
 		.addTo(map);
 
 	// OPTIONAL - simple example of dynamic styling with chromajs
-	const colorProp = data.features.map(f => +f.properties.status);
+	const colorProp = data.features.map(f => +f.properties.age);
 	const min = Math.min(...colorProp);
 	const max = Math.max(...colorProp);
 	const color = chroma.scale(chroma.brewer.Viridis.reverse()).domain([min, max]);
@@ -24,7 +24,7 @@ $(document).ready(function () {
 		style(feature) {
 			return {
 				// do custom styling things
-				fillColor: color(feature.properties.status),
+				fillColor: color(feature.properties.age),
 				stroke: false
 			}
 		},
@@ -63,7 +63,7 @@ $(document).ready(function () {
 		temporalGeoJSONLayer.setStyle(function(feature) { return {
 			fill: false,
 			stroke: true,
-			color: color(feature.properties.status),
+			color: color(feature.properties.age),
 			weight: 1
 		}});
 	});
