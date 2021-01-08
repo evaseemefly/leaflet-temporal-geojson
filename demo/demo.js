@@ -8,15 +8,16 @@ $(document).ready(function () {
 
 	L.tileLayer("http://{s}.sm.mapstack.stamen.com/(toner-lite,$fff[difference],$fff[@23],$fff[hsl-saturation@20])/{z}/{x}/{y}.png")
 		.addTo(map);
-
+	const tempVal='mass_oil'
 	// OPTIONAL - simple example of dynamic styling with chromajs
-	const colorProp = data.features.map(f => +f.properties.status);
+	const colorProp = data.features.map(f => +f.properties[tempVal]);
 	const min = Math.min(...colorProp);
 	const max = Math.max(...colorProp);
 	const color = chroma.scale(chroma.brewer.Viridis.reverse()).domain([min, max]);
 	
 	// OPTIONAL - custom pane
 	const paneName = 'myCustom';
+	
 
 	// INIT
 	const temporalGeoJSONLayer = L.temporalGeoJSONLayer({
@@ -24,7 +25,7 @@ $(document).ready(function () {
 		style(feature) {
 			return {
 				// do custom styling things
-				fillColor: color(feature.properties.status),
+				fillColor: color(feature.properties[tempVal]),
 				stroke: false
 			}
 		},
@@ -63,7 +64,7 @@ $(document).ready(function () {
 		temporalGeoJSONLayer.setStyle(function(feature) { return {
 			fill: false,
 			stroke: true,
-			color: color(feature.properties.status),
+			color: color(feature.properties[tempVal]),
 			weight: 1
 		}});
 	});
