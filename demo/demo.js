@@ -30,7 +30,7 @@ $(document).ready(function () {
 			}
 		},
 		circleMarkerOptions: {
-			radius: 10
+			radius: 3
 		},
 		paneName: paneName,
 		timeKey: "time",
